@@ -4,7 +4,7 @@
   "description": "This app feeds external api data to a  connected frontend app. ",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --timeout 50000",
     "start": "node server.js"
   },
   "type": "module",
@@ -19,9 +19,14 @@
   },
   "homepage": "https://github.com/aihoon01/cryptoTech-Backend#readme",
   "dependencies": {
+    "chai": "^4.3.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.2",
     "express": "^4.18.1",
-    "node-fetch": "^3.2.10"
+    "node-fetch": "^3.2.10",
+    "supertest": "^6.2.4"
+  },
+  "devDependencies": {
+    "mocha": "^10.0.0"
   }
 }

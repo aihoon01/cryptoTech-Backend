@@ -13,13 +13,14 @@ allCryptoRouter.get('/', async (req, res) => {
         'Accept-Encoding': 'deflate, gzip'
     
     }};
-    const id = req.query.id;
-    if (id) {
+    // const {id} = req.query.id;
+    
         const baseUrl = 'https://pro-api.coinmarketcap.com';
         const endPoint = '/v2/cryptocurrency/info';
+        const id = req.query.id;
         const requestParams = `?id=${id}`;
         const urlToFetch = `${baseUrl}${endPoint}${requestParams}`;
-    
+        if (id) {
         try {
         const cryptoInfo = await fetch(urlToFetch, headers);
         const data = await cryptoInfo.json();

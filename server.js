@@ -1,5 +1,4 @@
 import express from 'express';
-import fetch from 'node-fetch';
 import cors from 'cors';
 
 const app = express();
@@ -27,3 +26,5 @@ const port = process.env.PORT || 5000;
 app.listen(port, ()=> {
     console.log("server is listening on PORT: " + port)
 })
+
+export default app
