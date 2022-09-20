@@ -231,8 +231,8 @@ sortCryptoRouter.get('/', async (req, res) => {
 
     try {
     const cryptoInfo = await fetch(urlToFetch, headers);
-    const date = await cryptoInfo.json();
-    res.json(date);
+    const data = await cryptoInfo.json();
+    res.json(data);
 
     } catch(error) {
         console.error(error.message);

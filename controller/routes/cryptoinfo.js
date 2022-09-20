@@ -224,8 +224,8 @@ allCryptoRouter.get('/', async (req, res) => {
         if (id) {
         try {
         const cryptoInfo = await fetch(urlToFetch, headers);
-        const date = await cryptoInfo.json();
-        res.json(date);
+        const data = await cryptoInfo.json();
+        res.json(data);
     
         } catch(error) {
             console.error(error.message);
@@ -233,8 +233,8 @@ allCryptoRouter.get('/', async (req, res) => {
     } else {
         try {
             const crytpoInfo = await fetch('https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest', headers);
-            const date = await crytpoInfo.json();
-            res.json(date);
+            const data = await crytpoInfo.json();
+            res.json(data);
             } catch(error) {
                 console.log(error.message);
             }
