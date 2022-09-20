@@ -35,7 +35,7 @@ const options = {
                 email: "stephen.aihoon@gmail.com"
             }
         },
-        servers: [ { url: "https://git.heroku.com/cryptotech-backend.git" }]
+        servers: [ { url: "https://cryptotech-backend.herokuapp.com" }]
     },
     apis: ["./controller/routes/*.js"]
 };
