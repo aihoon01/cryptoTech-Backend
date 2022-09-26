@@ -1,4 +1,9 @@
-import db from "../../models/db.js";
+import express from "express";
+import { portfolioDb } from "../../models/portfolio/portfolioDb.js";
+const pfRouter = express.Router();
 
-const portfolioDb  = db('addAssert')
-// console.log(portfolioDb)
+pfRouter.get('/', (req, res) => {
+    res.send(portfolioDb);
+})
+
+export default pfRouter;

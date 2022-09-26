@@ -3,7 +3,8 @@ import cors from 'cors';
 import swaggerUI from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import coinRouter from './controller/router/coin.js';
-// import { coinDb } from './models/coin/coinDb.js';
+import wlRouter from './controller/router/watchlist.js';
+import pfRouter from './controller/router/portfolio.js';
 
 const app = express();
 
@@ -16,16 +17,17 @@ app.use(express.urlencoded({ extended: true}));
 
 //EXTERNAL Routes
 import allCryptoRouter from './controller/routes/cryptoinfo.js';
-import sortCryptoRouter from './controller/routes/sortCrypto.js';
+// import sortCryptoRouter from './controller/routes/sortCrypto.js';
 import addAssertRouter from './controller/routes/asserts.js';
 
 //EXTERNAL API Routes
 app.use('/', allCryptoRouter);
-app.use('/sort', sortCryptoRouter);
 app.use('/assert', addAssertRouter);
 
 //INTERNAL ROUTES
 app.use('/coins', coinRouter);
+app.use('/watchlist', wlRouter);
+app.use('/portfolio', pfRouter)
 
 //Swagger Setup
 const options = {

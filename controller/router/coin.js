@@ -1,5 +1,5 @@
 import express from "express";
-import { coinDb, coinDbNa, coinDbNd, coinDbPa, coinDbPd } from "../../models/coin/coinDb.js";
+import { coinDb } from "../../models/coin/coinDb.js";
 import { sortByPriceA, sortByPriceD, sortByNameA, sortByNameD } from "../helperFunctions.js";
 
 const coinRouter = express.Router();

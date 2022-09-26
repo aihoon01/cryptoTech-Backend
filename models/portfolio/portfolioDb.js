@@ -1,3 +1,7 @@
 import db from "../db.js";
+import { cryptoPrice, cryptoPriceSum } from "../../controller/helperFunctions.js";
+let data= await db('addAssert');
+export let portfolioDb = [];
 
-const asserts = await db('addAssert')
+cryptoPrice(portfolioDb, data)
+cryptoPriceSum(portfolioDb)

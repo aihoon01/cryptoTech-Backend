@@ -5,7 +5,6 @@ export const addAssert = async () => {
     //use input values from user porfolio input form.
     const id = 1 //hard_encoded
     const amount = 1 //hard_encoded
-    const currency = 'usd' //hard_encoded
 
     const baseUrl = 'https://cryptotech-backend.herokuapp.com';
     const endPoint = '/assert';
@@ -16,7 +15,7 @@ export const addAssert = async () => {
     const res = await fetch(urlToFetch)
     if (res.ok) {
     const data = await res.json();
-    return data
+    return data.data
     } else {
         alert("Cannot get data")
     }
