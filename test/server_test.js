@@ -33,18 +33,4 @@ describe('Server', () => {
             assert.isArray(response.body.data)
         })
     });
-
-    describe('/sort', () => {
-        it('Returns data for sorted crypto currency and returns a 200 status', async () =>{
-            //Setup
-            const statusCode = 200;
-            //Exercise
-            const response = await request(app)
-            .get('/sort')
-            //Verify
-            assert.equal(response.status, statusCode)
-            assert.isNotNull(response.body.data)
-            assert.isUndefined(response.body.data) //expecting result to be be undefined since query paramaters are not defined in the query strings. 
-        })
-    });
 });

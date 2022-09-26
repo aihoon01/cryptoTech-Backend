@@ -1,242 +1,242 @@
-import express from 'express';
-import fetch from 'node-fetch';
-import dotenv from 'dotenv';
-dotenv.config();
-/**
- * @swagger
- * components:
- *   schemas:
- *     cryptos:
- *       type: object
- *       securitySchemes:
- *         api_key:
- *           type: apiKey
- *           name: 'X-CMC_PRO_API_KEY'
- *           in: headers.headers
- *       properties:
- *         data:
- *           type: object
- *           description: object of cryptos
- *       example:
- *         date:
- *          - id: 1
- *            name: Bitcoin
- *            symbol: BTC
- *            slug: bitcoin
- *            cmc_rank: 5
- *            num_market_pairs: 500
- *            circulating_supply: 16950100
- *            total_supply: 16950100
- *            max_supply: 21000000
- *            last_updated: '2018-06-02T22:51:28.209Z'
- *            date_added: '2013-04-28T00:00:00.000Z'
- *            tags:
- *              - mineable
- *            platform: null
- *            self_reported_circulating_supply: null
- *            self_reported_market_cap: null
- *            quote:
- *              USD: 
- *                price: 9283.92
- *                volume_24h: 7155680000
- *                volume_change_24h: -0.152774
- *                percent_change_1h: -0.152774
- *                percent_change_24h: 0.518894
- *                percent_change_7d: 0.986573
- *                market_cap: 852164659250.2758
- *                market_cap_dominance: 51
- *                fully_diluted_market_cap: 952835089431.14
- *                last_updated: '2018-08-09T22:53:32.000Z'
- *              BTC:
- *                price: 1
- *                volume_24h: 772012
- *                volume_change_24h: 0
- *                percent_change_1h: 0
- *                percent_change_24h: 0
- *                percent_change_7d: 0
- *                market_cap: 17024600
- *                market_cap_dominance: 12
- *                fully_diluted_market_cap: 952835089431.14
- *                last_updated: '2018-08-09T22:53:32.000Z'
- *        
- *     generalError:
- *       400:
- *           description: Bad Request
- *           content:
- *             application/json:
- *               schema:
- *                 type: array
- *                 items:
- *                   type: object
- *                   properties:
- *                     timestamp:
- *                      format: date-time
- *                     error_code: 
- *                       minimum: 400
- *                     error_message: 
- *                       pattern: Invalid value for id
- *                     elapsed: 
- *                       minimum: 10
- *                     credit_count: 
- *                       minimum: 0
- * 
- *       401:
- *           description: Unauthorized
- *           content:
- *             application/json:
- *               schema:
- *                 type: array
- *                 items:
- *                   type: object
- *                   properties:
- *                     timestamp:
- *                       format: date-time
- *                     error_code: 
- *                       minimum: 1002
- *                     error_message: 
- *                       pattern: API key missing
- *                     elapsed: 
- *                       minimum: 10
- *                     credit_count: 
- *                       minimum: 0
- * 
- *       403:
- *           description: Forbidden
- *           content:
- *             application/json:
- *               schema:
- *                 type: array
- *                 items:
- *                   type: object
- *                   properties:
- *                     timestamp:
- *                       format: date-time
- *                     error_code: 
- *                       minimum: 1006
- *                     error_message: 
- *                       pattern: Your API key subscription plan doesn't support this endpoint.
- *                     elapsed: 
- *                       minimum: 10
- *                     credit_count: 
- *                       minimum: 0
- * 
- *       429:
- *           description: Too Many Requests
- *           content:
- *             application/json:
- *               schema:
- *                 type: array
- *                 items:
- *                   type: object
- *                   properties:
- *                     timestamp:
- *                       format: date-time
- *                     error_code: 
- *                       minimum: 1008
- *                     error_message: 
- *                       pattern: You have exceeded your API key's HTTP request rate limit. Rate limit resets every minute.
- *                     elapsed: 
- *                       minimum: 10
- *                     credit_count: 
- *                        minimum: 0
- * 
- *       500:
- *         description: Internal Server Error
- *         content:
- *             application/json:
- *               schema:
- *                 type: array
- *                 items:
- *                   type: object
- *                   properties:
- *                     timestamp:
- *                       format: date-time
- *                     error_code: 
- *                       minimum: 500
- *                     error_message: 
- *                       pattern: An internal server error occurred
- *                     elapsed: 
- *                       minimum: 10
- *                     credit_count: 
- *                       minimum: 0
- *         
- */
+// import express from 'express';
+// import fetch from 'node-fetch';
+// import dotenv from 'dotenv';
+// dotenv.config();
+// /**
+//  * @swagger
+//  * components:
+//  *   schemas:
+//  *     cryptos:
+//  *       type: object
+//  *       securitySchemes:
+//  *         api_key:
+//  *           type: apiKey
+//  *           name: 'X-CMC_PRO_API_KEY'
+//  *           in: headers.headers
+//  *       properties:
+//  *         data:
+//  *           type: object
+//  *           description: object of cryptos
+//  *       example:
+//  *         date:
+//  *          - id: 1
+//  *            name: Bitcoin
+//  *            symbol: BTC
+//  *            slug: bitcoin
+//  *            cmc_rank: 5
+//  *            num_market_pairs: 500
+//  *            circulating_supply: 16950100
+//  *            total_supply: 16950100
+//  *            max_supply: 21000000
+//  *            last_updated: '2018-06-02T22:51:28.209Z'
+//  *            date_added: '2013-04-28T00:00:00.000Z'
+//  *            tags:
+//  *              - mineable
+//  *            platform: null
+//  *            self_reported_circulating_supply: null
+//  *            self_reported_market_cap: null
+//  *            quote:
+//  *              USD: 
+//  *                price: 9283.92
+//  *                volume_24h: 7155680000
+//  *                volume_change_24h: -0.152774
+//  *                percent_change_1h: -0.152774
+//  *                percent_change_24h: 0.518894
+//  *                percent_change_7d: 0.986573
+//  *                market_cap: 852164659250.2758
+//  *                market_cap_dominance: 51
+//  *                fully_diluted_market_cap: 952835089431.14
+//  *                last_updated: '2018-08-09T22:53:32.000Z'
+//  *              BTC:
+//  *                price: 1
+//  *                volume_24h: 772012
+//  *                volume_change_24h: 0
+//  *                percent_change_1h: 0
+//  *                percent_change_24h: 0
+//  *                percent_change_7d: 0
+//  *                market_cap: 17024600
+//  *                market_cap_dominance: 12
+//  *                fully_diluted_market_cap: 952835089431.14
+//  *                last_updated: '2018-08-09T22:53:32.000Z'
+//  *        
+//  *     generalError:
+//  *       400:
+//  *           description: Bad Request
+//  *           content:
+//  *             application/json:
+//  *               schema:
+//  *                 type: array
+//  *                 items:
+//  *                   type: object
+//  *                   properties:
+//  *                     timestamp:
+//  *                      format: date-time
+//  *                     error_code: 
+//  *                       minimum: 400
+//  *                     error_message: 
+//  *                       pattern: Invalid value for id
+//  *                     elapsed: 
+//  *                       minimum: 10
+//  *                     credit_count: 
+//  *                       minimum: 0
+//  * 
+//  *       401:
+//  *           description: Unauthorized
+//  *           content:
+//  *             application/json:
+//  *               schema:
+//  *                 type: array
+//  *                 items:
+//  *                   type: object
+//  *                   properties:
+//  *                     timestamp:
+//  *                       format: date-time
+//  *                     error_code: 
+//  *                       minimum: 1002
+//  *                     error_message: 
+//  *                       pattern: API key missing
+//  *                     elapsed: 
+//  *                       minimum: 10
+//  *                     credit_count: 
+//  *                       minimum: 0
+//  * 
+//  *       403:
+//  *           description: Forbidden
+//  *           content:
+//  *             application/json:
+//  *               schema:
+//  *                 type: array
+//  *                 items:
+//  *                   type: object
+//  *                   properties:
+//  *                     timestamp:
+//  *                       format: date-time
+//  *                     error_code: 
+//  *                       minimum: 1006
+//  *                     error_message: 
+//  *                       pattern: Your API key subscription plan doesn't support this endpoint.
+//  *                     elapsed: 
+//  *                       minimum: 10
+//  *                     credit_count: 
+//  *                       minimum: 0
+//  * 
+//  *       429:
+//  *           description: Too Many Requests
+//  *           content:
+//  *             application/json:
+//  *               schema:
+//  *                 type: array
+//  *                 items:
+//  *                   type: object
+//  *                   properties:
+//  *                     timestamp:
+//  *                       format: date-time
+//  *                     error_code: 
+//  *                       minimum: 1008
+//  *                     error_message: 
+//  *                       pattern: You have exceeded your API key's HTTP request rate limit. Rate limit resets every minute.
+//  *                     elapsed: 
+//  *                       minimum: 10
+//  *                     credit_count: 
+//  *                        minimum: 0
+//  * 
+//  *       500:
+//  *         description: Internal Server Error
+//  *         content:
+//  *             application/json:
+//  *               schema:
+//  *                 type: array
+//  *                 items:
+//  *                   type: object
+//  *                   properties:
+//  *                     timestamp:
+//  *                       format: date-time
+//  *                     error_code: 
+//  *                       minimum: 500
+//  *                     error_message: 
+//  *                       pattern: An internal server error occurred
+//  *                     elapsed: 
+//  *                       minimum: 10
+//  *                     credit_count: 
+//  *                       minimum: 0
+//  *         
+//  */
 
-/**
- * @swagger
- * tags:
- *   name: sortedCrypto
- *   description: API for calling all sorted cryptos
- */
+// /**
+//  * @swagger
+//  * tags:
+//  *   name: sortedCrypto
+//  *   description: API for calling all sorted cryptos
+//  */
 
-/**
- * @swagger
- * /Sort:
- *   get:
- *     summary: Returns sorted crypto currencies
- *     tags: [sortedCrypto]
- * 
- *     parameters:
- *      - in: query
- *        name: sort
- *        schema:
- *          type: string
- *        description: Criteria for sorting
- *      - in: query
- *        name: sort_dir
- *        schema:
- *          type: string
- *        description: Order for sorting
- * 
- *     responses:
- *       200:
- *         description: List of top 100 sorted crypto currencies
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/cryptos'
- *
- *       400:
- *         $ref: '#/components/schemas/generalError/400'
- * 
- *       401:
- *         $ref: '#/components/schemas/generalError/401'
- * 
- *       403:
- *         $ref: '#/components/schemas/generalError/403'
- * 
- *       500:
- *         $ref: '#/components/schemas/generalError/500'          
- */
+// /**
+//  * @swagger
+//  * /Sort:
+//  *   get:
+//  *     summary: Returns sorted crypto currencies
+//  *     tags: [sortedCrypto]
+//  * 
+//  *     parameters:
+//  *      - in: query
+//  *        name: sort
+//  *        schema:
+//  *          type: string
+//  *        description: Criteria for sorting
+//  *      - in: query
+//  *        name: sort_dir
+//  *        schema:
+//  *          type: string
+//  *        description: Order for sorting
+//  * 
+//  *     responses:
+//  *       200:
+//  *         description: List of top 100 sorted crypto currencies
+//  *         content:
+//  *           application/json:
+//  *             schema:
+//  *               type: array
+//  *               items:
+//  *                 $ref: '#/components/schemas/cryptos'
+//  *
+//  *       400:
+//  *         $ref: '#/components/schemas/generalError/400'
+//  * 
+//  *       401:
+//  *         $ref: '#/components/schemas/generalError/401'
+//  * 
+//  *       403:
+//  *         $ref: '#/components/schemas/generalError/403'
+//  * 
+//  *       500:
+//  *         $ref: '#/components/schemas/generalError/500'          
+//  */
 
 
-const sortCryptoRouter = express.Router();
-sortCryptoRouter.get('/', async (req, res) => {
-    const sortBy = req.query.sort;
-    const sortIn = req.query.sort_dir;
-    const headers = {
-        headers: {
-        'X-CMC_PRO_API_KEY': process.env.API_KEY,
-        'Accept': 'application/json',
-        'Accept-Encoding': 'deflate, gzip'
+// const sortCryptoRouter = express.Router();
+// sortCryptoRouter.get('/', async (req, res) => {
+//     const sortBy = req.query.sort;
+//     const sortIn = req.query.sort_dir;
+//     const headers = {
+//         headers: {
+//         'X-CMC_PRO_API_KEY': process.env.API_KEY,
+//         'Accept': 'application/json',
+//         'Accept-Encoding': 'deflate, gzip'
     
-    }};
-    const baseUrl = 'https://pro-api.coinmarketcap.com';
-    const endPoint = '/v1/cryptocurrency/listings/latest';
-    const requestParams = `?sort=${sortBy}&sort_dir=${sortIn}`;
-    const urlToFetch = `${baseUrl}${endPoint}${requestParams}`;
-    console.log(urlToFetch)
+//     }};
+//     const baseUrl = 'https://pro-api.coinmarketcap.com';
+//     const endPoint = '/v1/cryptocurrency/listings/latest';
+//     const requestParams = `?sort=${sortBy}&sort_dir=${sortIn}`;
+//     const urlToFetch = `${baseUrl}${endPoint}${requestParams}`;
+//     console.log(urlToFetch)
 
-    try {
-    const cryptoInfo = await fetch(urlToFetch, headers);
-    const data = await cryptoInfo.json();
-    res.json(data);
+//     try {
+//     const cryptoInfo = await fetch(urlToFetch, headers);
+//     const data = await cryptoInfo.json();
+//     res.json(data);
 
-    } catch(error) {
-        console.error(error.message);
-    }
-})
+//     } catch(error) {
+//         console.error(error.message);
+//     }
+// })
 
-export default sortCryptoRouter;
+// export default sortCryptoRouter;
