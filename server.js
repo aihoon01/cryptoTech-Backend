@@ -50,7 +50,7 @@ const options = {
 const specs = swaggerJSDoc(options)
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 
 app.listen(port, ()=> {
     console.log("server is listening on PORT: " + port)
