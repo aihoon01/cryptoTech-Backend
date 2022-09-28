@@ -33,4 +33,47 @@ describe('Server', () => {
             assert.isArray(response.body.data)
         })
     });
+
+    describe('/coins', () => {
+        it('sends all crypto currency', async () => {
+            //setup
+            const statusCode = 200;
+            //Exercise
+            const response = await request(app)
+            .get('/')
+            //Verify
+            assert.equal(response.status, statusCode)
+            assert.isNotNull(response.body.data)
+            assert.isArray(response.body.data)
+        })
+    });
+
+    describe('/watchlist', () => {
+        it('sends all crypto currency', async () => {
+            //setup
+            const statusCode = 200;
+            //Exercise
+            const response = await request(app)
+            .get('/')
+            //Verify
+            assert.equal(response.status, statusCode)
+            assert.isNotNull(response.body.data)
+            assert.isArray(response.body.data)
+        })
+    });
+
+    describe('/portfolio', () => {
+        it('sends all crypto currency', async () => {
+            //setup
+            const statusCode = 200;
+            //Exercise
+            const response = await request(app)
+            .get('/')
+            //Verify
+            assert.equal(response.status, statusCode)
+            assert.isNotNull(response.body.data)
+            assert.isArray(response.body.data)
+        })
+    })
+
 });

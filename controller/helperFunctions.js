@@ -18,44 +18,44 @@ export const sortByNameD = (datas) => {
 //if crytpo exists, delete crypto from watchList DB, else add to watchList DB
 
 //sample Test
-// const data = [{
-//     "id": 1,
-//     "symbol": "BTC",
-//     "name": "Bitcoin",
-//     "amount": 1,
-//     "last_updated": "2022-09-24T18:05:00.000Z",
-//     "quote": {
-//     "USD": {
-//     "price": 19072.029697320148,
-//     "last_updated": "2022-09-24T18:05:00.000Z"
-//     }
-//     }
-//     }, {
-//     "id": 1,
-//     "symbol": "BTC",
-//     "name": "Bitcoin",
-//     "amount": 1,
-//     "last_updated": "2022-09-24T18:05:00.000Z",
-//     "quote": {
-//     "USD": {
-//     "price": 19072.029697320148,
-//     "last_updated": "2022-09-24T18:05:00.000Z"
-//     }
-//     }
-//     }];
-// const others = {
-//     "id": 2,
-//     "symbol": "BTC",
-//     "name": "Ethereum",
-//     "amount": 1,
-//     "last_updated": "2022-09-24T18:05:00.000Z",
-//     "quote": {
-//     "USD": {
-//     "price": 19072.029697320148,
-//     "last_updated": "2022-09-24T18:05:00.000Z"
-//     }
-//     }
-//     };
+const data = [{
+    "id": 1,
+    "symbol": "BTC",
+    "name": "Bitcoin",
+    "amount": 1,
+    "last_updated": "2022-09-24T18:05:00.000Z",
+    "quote": {
+    "USD": {
+    "price": 19072.029697320148,
+    "last_updated": "2022-09-24T18:05:00.000Z"
+    }
+    }
+    }, {
+    "id": 1,
+    "symbol": "BTC",
+    "name": "Bitcoin",
+    "amount": 1,
+    "last_updated": "2022-09-24T18:05:00.000Z",
+    "quote": {
+    "USD": {
+    "price": 19072.029697320148,
+    "last_updated": "2022-09-24T18:05:00.000Z"
+    }
+    }
+    }];
+const others = {
+    "id": 2,
+    "symbol": "BTC",
+    "name": "Etherum",
+    "amount": 1,
+    "last_updated": "2022-09-24T18:05:00.000Z",
+    "quote": {
+    "USD": {
+    "price": 19072.029697320148,
+    "last_updated": "2022-09-24T18:05:00.000Z"
+    }
+    }
+    };
 
 
 export const cryptoAdd = (data, crypto) => {
@@ -76,24 +76,16 @@ export const getCryptoById = (data, id) => {
 //Takes in a crypto array and a crypto object and check if crypto exists
 //if crytpo exists, increase the total amount of the crypto
 //If crypto does not exists, add crypto to the crypto array.
-export const cryptoPrice = (data, crypto) => {
-    data.length === 0 ? data.push(crypto): data.forEach(ele => ele.id === crypto.id ? ele.quote.USD.price +=crypto.quote.USD.price : data.unshift(crypto));
-    return data
+export const cryptoPrice = (data, crypto) => {  
+ data.length === 0 ? data.push(crypto): data.some(ele => ele.id === crypto.id ? ele.quote.USD.price +=crypto.quote.USD.price : data.unshift(crypto));
+//  return data;
 };
 
 //Sums up the of all Cryptos
 export const cryptoPriceSum = (data) => {
-    const totalPrice = data.reduce((a, b) =>  a.quote.USD.price + b.quote.USD.price );
-    if (data.length === 0) {
-    data.push({totalPrice: 0})
-    } else {
-        const findX = data.find(ele => ele.key === totalPrice);
-        if (findX) {
-            totalPrice += totalPrice
-        } else {
-            data.push({totalPrice: totalPrice});
-        }
-    }
-    return data
+   const totalPrices = data.reduce((a, b) =>  a.quote.USD.price + b.quote.USD.price );
+//    console.log(totalPrices)
+   data.some(ele => ele.totalPrice ? ele.totalPrice +=totalPrice : data.push({totalPrice: totalPrices}))
+   return data;
 };
 // console.log(cryptoPriceSum(data));
