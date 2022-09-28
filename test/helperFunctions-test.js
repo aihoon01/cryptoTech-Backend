@@ -202,7 +202,7 @@ describe('Helper Functions', () => {
                 "last_updated": "2022-09-24T18:05:00.000Z"
                 }
                 }
-                } ];
+                }];
             const expect = [{
                 "id": 1,
                 "symbol": "BTC",

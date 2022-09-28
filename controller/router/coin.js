@@ -7,30 +7,30 @@ const coinRouter = express.Router();
 coinRouter.get('/', (req, res) => {
     try {
         const coins = coinDb
-        res.send(coins)
+        res.json(coins)
     } catch (error) {
         console.error(error.message)
     }
-})
+});
 
 coinRouter.get('/:sort', (req, res) => {
     try {
     switch (req.params.sort) {
         case 'sortna':
             const sortedcoinNa = sortByNameA(coinDb);
-            res.send(sortedcoinNa)
+            res.json(sortedcoinNa)
             break;
         case 'sortnd':
             const sortedCoinNd = sortByNameD(coinDb);
-            res.send(sortedCoinNd)
+            res.json(sortedCoinNd)
             break;
         case 'sortpa':
             const sortedCoinPa = sortByPriceA(coinDb);
-            res.send(sortedCoinPa)
+            res.json(sortedCoinPa)
             break;
         case 'sortpd':
             const sortedCoinPd = sortByPriceD(coinDb);
-            res.send(sortedCoinPd)
+            res.json(sortedCoinPd)
             break;
         }
     } catch (error) {
@@ -40,7 +40,7 @@ coinRouter.get('/:sort', (req, res) => {
 // try{
 //     if (req.params.sort === 'sortna') {
 //         const coins = coinDbNa
-//         res.send(coins)
+//         res.json(coins)
 //     } else {
 //         console.log('error')
 //     }
