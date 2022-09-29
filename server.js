@@ -15,15 +15,6 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
-//EXTERNAL Routes
-import allCryptoRouter from './controller/routes/cryptoinfo.js';
-// import sortCryptoRouter from './controller/routes/sortCrypto.js';
-import addAssertRouter from './controller/routes/asserts.js';
-
-//EXTERNAL API Routes
-app.use('/', allCryptoRouter);
-app.use('/assert', addAssertRouter);
-
 //INTERNAL ROUTES
 app.use('/coins', coinRouter);
 app.use('/watchlist', wlRouter);
@@ -42,15 +33,16 @@ const options = {
                 email: "stephen.aihoon@gmail.com"
             }
         },
-        servers: [ { url: "https://cryptotech-backend.herokuapp.com" }]
+        servers: [ { url: "https://cryptotech-backend.herokuapp.com" }, {url: "http://localhost:4000" }
+    ]
     },
-    apis: ["./controller/routes/*.js"]
+    apis: ["./controller/router/*.js"]
 };
 
 const specs = swaggerJSDoc(options)
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 
 app.listen(port, ()=> {
     console.log("server is listening on PORT: " + port)
