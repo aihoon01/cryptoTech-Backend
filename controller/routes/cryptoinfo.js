@@ -168,7 +168,7 @@ const allCryptoRouter = express.Router();
 /**
  * @swagger
  * tags:
- *   name: allCrypto
+ *   name: ExternalRoute
  *   description: API for calling all available cryptos
  */
 
@@ -177,7 +177,7 @@ const allCryptoRouter = express.Router();
  * /:
  *   get:
  *     summary: Returns all available crypto currencies
- *     tags: [allCrypto]
+ *     tags: [ExternalRoute]
  *     responses:
  *       200:
  *         description: List of 100 crypto currencies

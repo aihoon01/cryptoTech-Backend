@@ -78,7 +78,7 @@ export const getCryptoById = (data, id) => {
 //If crypto does not exists, add crypto to the crypto array.
 export const cryptoPrice = (data, crypto) => {  
  data.length === 0 ? data.push(crypto): data.some(ele => ele.id === crypto.id ? ele.quote.USD.price +=crypto.quote.USD.price : data.unshift(crypto));
-//  return data;
+ return data;
 };
 
 //Sums up the of all Cryptos

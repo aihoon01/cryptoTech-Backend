@@ -145,7 +145,7 @@ const addAssertRouter = express.Router();
 /**
  * @swagger
  * tags:
- *   name: addAssert
+ *   name: ExternalRoute
  *   description: API for converting crypto currency to USD
  */
 
@@ -154,7 +154,7 @@ const addAssertRouter = express.Router();
  * /assert:
  *   get:
  *     summary: Converts crypto coins to currency (USD)
- *     tags: [addAssert]
+ *     tags: [ExternalRoute]
  * 
  *     parameters:
  *      - in: query
