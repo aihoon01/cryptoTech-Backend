@@ -5,6 +5,9 @@ import swaggerJSDoc from 'swagger-jsdoc';
 import coinRouter from './controller/router/coin.js';
 import wlRouter from './controller/router/watchlist.js';
 import pfRouter from './controller/router/portfolio.js';
+import allCryptoRouter from './controller/routes/cryptoinfo.js';
+import addAssertRouter from './controller/routes/assert.js';
+import sortCryptoRouter from './controller/routes/sortCrypto.js';
 
 const app = express();
 
@@ -14,6 +17,11 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
+
+//External Routes
+app.use('/', allCryptoRouter);
+app.use('/assert', addAssertRouter);
+app.use('/sort', sortCryptoRouter)
 
 //INTERNAL ROUTES
 app.use('/coins', coinRouter);
